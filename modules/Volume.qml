@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Io
 import Quickshell.Services.Pipewire
 import qs.components
 import qs.config
@@ -25,16 +26,26 @@ Row {
         return "";
     }
 
-    LazyLoader {
-        id: popupLoader
+    // LazyLoader {
+    //     id: popupLoader
 
-        loading: true        
-        Panel {}
-    }
+    //     loading: true        
+    //     Panel {}
+    // }
 
     function getClicked() {
-        icon.clicked();
-        popupLoader.item.visible = !popupLoader.item.visible
+        // icon.clicked();
+        // popupLoader.item.visible = !popupLoader.item.visible
+        openWindow.running = true;
+    }
+
+    Process {
+        id: openWindow
+        running: false
+        command: [ "pwvucontrol" ]
+        stdout: StdioCollector {
+            onStreamFinished: console.log(`line read: ${this.text}`)
+        }
     }
 
     Icon {

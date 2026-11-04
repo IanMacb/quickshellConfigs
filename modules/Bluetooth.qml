@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Io
 import Quickshell.Bluetooth
 import qs.components
 import qs.config
@@ -18,24 +19,18 @@ Row {
         return btConnectedCount > 0 ? "󰂱" : "";
     }
 
-    Icon {}
+    function getClicked() {
+        openWindow.running = true;
+    }
 
-    // Text {
-    //     id: icon
-    //     signal clicked
-    //     text: getIcon()
-    //     color: iconColor
-    //     font.pixelSize: 20
-    //     anchors.verticalCenter: parent.verticalCenter
-    //     Behavior on color { ColorAnimation { duration: 150 } }
-    //     Behavior on scale { NumberAnimation { duration: 50 } }
-    //     scale: mouse.pressed ? 1.2 : 1.0
-    //     MouseArea {
-    //         id: mouse
-    //         anchors.fill: parent
-    //         hoverEnabled: true
-    //         cursorShape: Qt.PointingHandCursor
-    //         onClicked: icon.clicked()
-    //     }
-    // }
+    Process {
+        id: openWindow
+        running: false
+        command: [ "blueman-manager" ]
+        stdout: StdioCollector {
+            onStreamFinished: console.log(`line read: ${this.text}`)
+        }
+    }
+
+    Icon {}
 }

@@ -21,7 +21,7 @@ Variants {
         // --- Layer Shell Configuration ---
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.namespace: "quickshell-topbar"
-        // visible: !FullscreenState.isFullscreen(monitor)
+        visible: !FullscreenState.isFullscreen(monitor)
         color: '#cc000000'
         implicitHeight: Layout.topBarHeight
 

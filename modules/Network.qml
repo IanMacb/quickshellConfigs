@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Io
 import Quickshell.Networking
 import qs.components
 import qs.config
@@ -35,28 +36,21 @@ Row {
             return "󰤯";
         }
         return "󰤮";
-        // if (ethernetConnected) return "lan";
+        if (ethernetConnected) return "󰈀";
+    }
+
+    function getClicked() {
+        openWindow.running = true;
+    }
+
+    Process {
+        id: openWindow
+        running: false
+        command: [ "nmgui" ]
+        stdout: StdioCollector {
+            onStreamFinished: console.log(`line read: ${this.text}`)
+        }
     }
 
     Icon {}
-
-
-    // Text {
-    //     id: icon
-    //     signal clicked
-    //     text: getIcon()
-    //     color: iconColor
-    //     font.pixelSize: 20
-    //     anchors.verticalCenter: parent.verticalCenter
-    //     Behavior on color { ColorAnimation { duration: 150 } }
-    //     Behavior on scale { NumberAnimation { duration: 50 } }
-    //     scale: mouse.pressed ? 1.2 : 1.0
-    //     MouseArea {
-    //         id: mouse
-    //         anchors.fill: parent
-    //         hoverEnabled: true
-    //         cursorShape: Qt.PointingHandCursor
-    //         onClicked: icon.clicked()
-    //     }
-    // }
 }
