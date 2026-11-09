@@ -19,10 +19,10 @@ Item {
     // readonly property int dotHeight: 6
     // readonly property int spacingAmount: 8
 
-    // readonly property var sortedWorkspaces: {
-    //     var ws = Hyprland.workspaces.values;
-    //     return ws.filter(w => w.id >= 1 && w.monitor?.name === root.targetMonitor).sort((a, b) => a.id - b.id);
-    // }
+    readonly property var sortedWorkspaces: {
+        var ws = Hyprland.workspaces.values;
+        return ws.filter(w => w.id >= 1 && w.monitor?.name === root.targetMonitor).sort((a, b) => a.id - b.id);
+    }
 
     // The monitor object for this bar instance — the authoritative source for
     // "what workspace is current here", rather than scanning workspace flags.
@@ -72,11 +72,12 @@ Item {
 
         Repeater {
             // greater of: total workspaces or 5
-            model: Math.max(5, Hyprland.workspaces.values[Hyprland.workspaces.values.length - 1].id)
+            model: currentMonitor.name === "eDP-1" ? Math.max(5, sortedWorkspaces[sortedWorkspaces.length - 1].id) : 5
 
             Rectangle {
-                property var ws: Hyprland.workspaces.values.find(w => w.id === index + 1)
-                property bool isActive: Hyprland.focusedWorkspace?.id === (index + 1)
+                property var monitorCorrectinonFactor: currentMonitor.name === "DP-2" ? 10 : 0
+                property var ws: Hyprland.workspaces.values.find(w => w.id === index + 1 + monitorCorrectinonFactor)
+                property bool isActive: Hyprland.focusedWorkspace?.id === (index + 1 + monitorCorrectinonFactor)
                 width: isActive ? 25 : 8
                 height: 8
                 radius: 99

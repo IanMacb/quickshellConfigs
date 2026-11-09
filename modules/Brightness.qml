@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Io
 import qs.services
 import qs.components
 import qs.config
@@ -16,24 +17,25 @@ Row {
         return "󰃞";
     }
 
-    Icon {}
+    function getClicked() {
+        popupLoader.item.visible = !popupLoader.item.visible
+    }
 
-    // Text {
-    //     id: icon
-    //     signal clicked
-    //     text: getIcon()
-    //     color: iconColor
-    //     font.pixelSize: 20
-    //     anchors.verticalCenter: parent.verticalCenter
-    //     Behavior on color { ColorAnimation { duration: 150 } }
-    //     Behavior on scale { NumberAnimation { duration: 50 } }
-    //     scale: mouse.pressed ? 1.2 : 1.0
-    //     MouseArea {
-    //         id: mouse
-    //         anchors.fill: parent
-    //         hoverEnabled: true
-    //         cursorShape: Qt.PointingHandCursor
-    //         onClicked: icon.clicked()
-    //     }
-    // }
+    LazyLoader {
+        id: popupLoader
+
+        loading: true
+        Panel {
+            // visible: true
+            id: batteryPanel
+            property int panelWidth: batteryPanel.implicitWidth - 20
+            MouseArea{
+                anchors.fill: parent
+                hoverEnabled: true
+                onExited: setPanelTimer(true)
+                onEntered: setPanelTimer(false)
+
+                Column{
+                }}}}
+    Icon {}
 }

@@ -3,13 +3,13 @@ import Quickshell
 import qs.config
 
 Item {
-    id: root
+    id: systemControl
 
     Row {
         id: iconsRow
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
-        spacing: 18
+        spacing: 14
 
         Volume {}
 

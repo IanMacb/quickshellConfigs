@@ -16,11 +16,13 @@ Variants {
         required property var modelData
         // --- Fullscreen Detection Logic ---
         readonly property HyprlandMonitor monitor: Hyprland.monitorFor(screen)
+        readonly property var toplevel: ToplevelManager.activeToplevel
 
         screen: modelData
         // --- Layer Shell Configuration ---
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.namespace: "quickshell-topbar"
+        visible: !toplevel.fullscreen
         // visible: !FullscreenState.isFullscreen(monitor)
         color: '#cc000000'
         implicitHeight: Layout.topBarHeight

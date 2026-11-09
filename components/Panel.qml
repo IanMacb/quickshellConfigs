@@ -1,8 +1,25 @@
 import QtQuick
 import Quickshell
+import qs.config
 
 PopupWindow {
     id: root
+
+    function closePanel() {
+        root.visible = false
+    }
+
+    function setPanelTimer(b) {
+        closeTimer.running = b
+    }
+
+    Timer {
+        id: closeTimer
+        interval: 1200
+        repeat: false
+        running: false
+        onTriggered: closePanel()
+    }
 
     anchor.window: topBar
     anchor.rect.x: 1920 - 8 - implicitWidth
@@ -20,7 +37,6 @@ PopupWindow {
         implicitHeight: parent.implicitHeight
         radius: 4
 
-        color: "gray"
+        color: Theme.grey00
     }
-
 }

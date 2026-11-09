@@ -5,11 +5,11 @@ import qs.config
 Text {
     id: icon
 
-    signal clicked
+    // signal clicked
     text: getIcon()
     color: iconColor
     font: Theme.font
-    anchors.verticalCenter: parent.verticalCenter
+    // anchors.verticalCenter: parent.verticalCenter
 
 
     Behavior on color { ColorAnimation { duration: 150 } }
@@ -20,7 +20,9 @@ Text {
     
     MouseArea {
         id: mouse
-        anchors.fill: parent
+        anchors.centerIn: parent
+        implicitHeight: topBar.implicitHeight
+        implicitWidth: parent.implicitWidth + 10
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         onClicked: getClicked()
